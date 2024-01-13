@@ -12,11 +12,9 @@ function App() {
       return response.json()
     })
     .then(data => {
-      console.log(process.env);
       setImg(data.urls.regular);
     });
 
-    //const imageBlob = await res.blob();
   };
 
   useEffect(() => {
@@ -24,9 +22,9 @@ function App() {
   }, []);
 
   return (
-    <>
-      <img src={img} alt="random photo" />
-    </>
+    <div>
+      <img className = "image" src={img} alt="random photo" />
+    </div>
   );
 }
 
