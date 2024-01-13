@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from "react";
+
+const imageUrl = "https://api.unsplash.com/photos/random/?client_id=" + process.env.REACT_APP_ACCESS_KEY;
 
 function App() {
+  const [img, setImg] = useState();
+
+  const fetchImage = async () => {
+    const res = await fetch(imageUrl)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      console.log(process.env);
+      setImg(data.urls.regular);
+    });
+
+    //const imageBlob = await res.blob();
+  };
+
+  useEffect(() => {
+    fetchImage();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <img src={img} alt="random photo" />
+    </>
   );
 }
 
